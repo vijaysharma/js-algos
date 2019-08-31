@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Arrays</title>
+</head>
+<body>
+
+<script type="text/javascript">
+	const arr = [1, 3, [2, 5, 8, 7], 9, [11, 10, 12, 15, [16, 18, 19, ['apple', [{name: 'Vijay Sharma'}], 'mango'], 21], 20], 22];
+	// const arr = [1,3,2,5,8,7,9,11,10,12,15];
+
+	const flattenArray = (arr) => {
+		return arr.reduce((total, current, index, array) => {
+			if(index === 1) {
+				total = [].concat(total);
+			} 
+			if (current instanceof Array) {
+				return total.concat(flattenArray(current));
+			} else {
+				return total.concat(current);					
+			}		
+		})
+	}
+
+	const flattenArray1 = (arr) => {
+		const newArray = [];
+		arr.map((current, index, array) => {
+			if(current instanceof Array) {
+				newArray.push(...flattenArray1(current));
+			} else {
+				newArray.push(current)
+			}
+		})
+		return newArray;
+	}
+
+	const bar = flattenArray(arr)
+
+	console.log(bar)
+</script>
+</body>
+</html>
